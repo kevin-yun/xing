@@ -1,18 +1,35 @@
 package com.kevin.xing.login.controller;
 
+import com.kevin.xing.login.model.User;
+import com.kevin.xing.login.service.UserService;
 import com.kevin.xing.result.Result;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/login")
 public class LoginController {
 
-    @RequestMapping("/checkInfo")
+    @Resource
+    private UserService userService;
 
-    public Result checkInfo(String username, String password) {
+//    @CrossOrigin
+    @RequestMapping(value = "/checkInfo")
+    @ResponseBody
+    public Result checkInfo(@RequestBody User requestUser, HttpSession session) {
+        // String username, @RequestParam String password
+        String username = HtmlUtils.htmlEscape(requestUser.getUsername());
 
+        User user = userService.findUserByUsernameAndPassword(username, requestUser.getPassword());
 
-        return new Result(null);
+        if (user == null) {
+            return new Result("账户或密码错误");
+        } else {
+            session.setAttribute("user", user);
+            return new Result(user);
+        }
     }
 }

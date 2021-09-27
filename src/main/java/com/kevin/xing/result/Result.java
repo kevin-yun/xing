@@ -8,14 +8,43 @@ public class Result {
 
     private Object data;
 
+    public Result() {
+        this.message = "success";
+        this.code = 200;
+    }
+
     public Result(Object data) {
-        if (data == null) {
-            this.code = 400;
-            this.message = "false";
-        } else {
-            this.data = data;
-            this.code = 200;
-            this.message = "success";
-        }
+        this.data = data;
+        this.message = "success";
+        this.code = 200;
+    }
+
+    public Result(String message) {
+        this.message = message;
+        this.code = 400;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }
