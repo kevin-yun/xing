@@ -26,10 +26,10 @@ public class LoginController {
         User user = userService.findUserByUsernameAndPassword(username, requestUser.getPassword());
 
         if (user == null) {
-            return new Result("账户或密码错误");
+            return new Result(false, "账户或密码错误");
         } else {
             session.setAttribute("user", user);
-            return new Result(user);
+            return new Result(true, user);
         }
     }
 }

@@ -1,12 +1,18 @@
 package com.kevin.xing.config;
 
+import com.kevin.xing.configProperties.XingProperties;
 import com.kevin.xing.interceptor.LoginInterceptor;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.*;
 
+import javax.annotation.Resource;
+
 @SpringBootConfiguration
 public class WebConfigurer implements WebMvcConfigurer {
+
+    @Resource
+    private XingProperties xingProperties;
 
     @Bean
     public LoginInterceptor getLoginIntercepter() {
@@ -29,6 +35,11 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry){
         // 对所有路径应用拦截器，除了 /index.html
         registry.addInterceptor(getLoginIntercepter()).addPathPatterns("/**").excludePathPatterns("/index.html");
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/api/book/file/**").addResourceLocations("file:" + xingProperties.getFileUrl());
     }
 
     @Override

@@ -84,3 +84,6 @@ spring:
     filterUrlPatterns: "/*"
     filterExclusions: "*.js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*"
 ## Druid 数据库连接信息 END ##
+
+xing:
+  fileUrl: "home/xing/file/"

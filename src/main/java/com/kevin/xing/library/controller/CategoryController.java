@@ -23,9 +23,9 @@ public class CategoryController {
     public Result findList(){
         try {
             List<Category> list = categoryService.findList();
-            return new Result(list);
+            return new Result(true, list);
         } catch (Exception e) {
-            return new Result(e.getMessage());
+            return new Result(false, e.getMessage());
         }
     }
 
@@ -34,9 +34,9 @@ public class CategoryController {
     public Result findInfo(@RequestBody Category category){
         try {
             Category info = categoryService.findInfo(category.getId());
-            return new Result(info);
+            return new Result(true, info);
         } catch (Exception e) {
-            return new Result(e.getMessage());
+            return new Result(false, e.getMessage());
         }
     }
 }

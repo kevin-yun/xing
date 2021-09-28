@@ -13,15 +13,15 @@ public class Result {
         this.code = 200;
     }
 
-    public Result(Object data) {
+    public Result(boolean success, Object data) {
         this.data = data;
-        this.message = "success";
-        this.code = 200;
-    }
-
-    public Result(String message) {
-        this.message = message;
-        this.code = 400;
+        if (success) {
+            this.message = "success";
+            this.code = 200;
+        } else {
+            this.message = (String) data;
+            this.code = 400;
+        }
     }
 
     public Integer getCode() {
